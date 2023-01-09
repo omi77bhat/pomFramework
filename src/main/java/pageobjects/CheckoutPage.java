@@ -5,14 +5,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-public class CheckoutPage {
+import testComponents.Base;
+
+public class CheckoutPage extends Base{
 	
-WebDriver driver;
-	
-	public CheckoutPage(WebDriver driver) {
+	public CheckoutPage() {
 		
-		this.driver = driver;
+		PageFactory.initElements(driver, this);
 		
 	}
 	
@@ -27,6 +28,7 @@ WebDriver driver;
 
 	private By results = By.cssSelector(".ta-results");
 
+	
 	public void selectCountry(String countryName) {
 		Actions a = new Actions(driver);
 		a.sendKeys(country, countryName).build().perform();

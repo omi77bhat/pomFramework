@@ -1,5 +1,8 @@
 package tests;
 
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.AssertJUnit;
@@ -13,61 +16,50 @@ import pageobjects.CartPage;
 import pageobjects.CheckoutPage;
 import pageobjects.ConfirmationPage;
 import pageobjects.LoginPage;
-import testComponents.BaseClass;
+import testComponents.Base;
 
 
 //@Listeners(testComponents.Listeners.class)
-public class LoginPageTest extends BaseClass{
+public class LoginPageTest extends Base{
 	
-
-	@Test
+	LoginPage lp;
+	
+	
+	public LoginPageTest() {
+		super();
+	}
+	
+	@BeforeMethod
+	public void initialize() {
+		launchApp();
+		lp = new LoginPage();
+	}
+	
+	
+	@Test(priority=2)
 	public void run_LoginTest() throws InterruptedException {
 	
-		LoginPage lp = PageFactory.initElements(driver, LoginPage.class);
+		lp = PageFactory.initElements(driver, LoginPage.class);
 		lp.login("omitest@gmail.com", "Mytest#77!");
 				
 	}
 	
-	@Test(dependsOnMethods = {"run_LoginTest"})
-	public void run_addToCartTest() throws InterruptedException {
-		
-		AddProductPage ap = PageFactory.initElements(driver, AddProductPage.class);
-		ap.addProductToCart("ADIDAS ORIGINAL","Product Added To Cart");
-		
-		
+	@Test(priority=1,retryAnalyzer=testComponents.Retry.class)
+	public void run_LoginTest_VerifyTitle() throws InterruptedException {
+	
+	String actual = lp.verifyLoginPageTitle();
+//	Assert.assertEquals(actual, "Let's Shop");
+	Assert.assertTrue(false);
+	
+				
 	}
+	
+	
+	@AfterMethod
+	public void close_Browser() {
+		exitApp();
+	}
+	
 
-	@Test(dependsOnMethods = {"run_addToCartTest"})
-	public void run_verifyProductInCart_Checkout() throws InterruptedException {
-		
-		CartPage cp = PageFactory.initElements(driver, CartPage.class);
-		cp.verifyProductAddedToCart("ADIDAS ORIGINAL");
-		
-		
-	}
-
-	@Test(dependsOnMethods = {"run_verifyProductInCart_Checkout"})
-	public void run_checkout() throws InterruptedException {
-		
-		CheckoutPage co = PageFactory.initElements(driver, CheckoutPage.class);
-		co.selectCountry("India");
-		
-		
-	}
-	
-	@Test(dependsOnMethods = {"run_checkout"})
-	public void run_confirmationMessage() throws InterruptedException {
-		
-		ConfirmationPage co = PageFactory.initElements(driver, ConfirmationPage.class);
-		
-		System.out.println("*******Actual confirmation message : " + co.getConfirmationMessage());
-		AssertJUnit.assertTrue(co.getConfirmationMessage().equalsIgnoreCase("THANKYOU FOR THE ORDER."));
-		
-		
-	}
-	
-	
-	
-	
 
 }

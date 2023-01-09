@@ -7,24 +7,29 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-public class AddProductPage {
+import testComponents.Base;
+
+public class AddProductPage extends Base{
 	
+
 	
-WebDriver driver;
-	
-	public AddProductPage(WebDriver driver) {
+	public AddProductPage() {
 		
-		this.driver = driver;
+		PageFactory.initElements(driver, this);
 		
 	}
 	
 	
 	@FindBy(css=".mb-3")
 	List<WebElement> productList;
+	
+	@FindBy(xpath="//button[normalize-space()='HOME']")
+	WebElement homeText;
 	
 
 	By addToCart = By.cssSelector(".card-body button:last-of-type");
@@ -59,6 +64,11 @@ WebDriver driver;
 		String message = driver.findElement(toastMessage).getText();
 		
 		Assert.assertEquals(message, successmessage);
+		
+	}
+	
+	public boolean verify_HomePage_Text() {
+		return homeText.isDisplayed();
 		
 	}
 

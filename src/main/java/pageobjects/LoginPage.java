@@ -3,14 +3,16 @@ package pageobjects;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
-public class LoginPage {
+import testComponents.Base;
+
+public class LoginPage extends Base {
 	
-	WebDriver driver;
-	
-	public LoginPage(WebDriver driver) {
+	public LoginPage() {
 		
-		this.driver = driver;
+	PageFactory.initElements(driver, this);
 		
 	}
 	
@@ -34,9 +36,9 @@ public class LoginPage {
 		Thread.sleep(5000);
 	}
 	
-	public void verifyPageTitle() {
-		
-		
+	public String verifyLoginPageTitle() {
+		return driver.getTitle();
+
 	}
 
 }

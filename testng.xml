@@ -6,10 +6,13 @@
 	<listener class-name="testComponents.Listeners"/>
 </listeners>
 
-  <test name="LoginPageTest">
+  <test name="End to End Test">
     <classes>
       <class name="tests.LoginPageTest"/>
       <class name="tests.AddProductPageTest"/>
+      <class name="tests.CartPageTest"/>
+      <class name="tests.CheckoutPageTest"/>
+      <class name="tests.ConfirmationPageTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

@@ -11,22 +11,27 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+
+import reporting.ExtentReporter;
 
 
-public class Listeners extends BaseClass implements ITestListener{
+
+public class Listeners extends Base implements ITestListener{
 	
-//	ExtentTest test;
-//	ExtentReports extent = ExtentReporter.getReportObject();
-//	
-//	ThreadLocal<ExtentTest> extentTest = new ThreadLocal<ExtentTest>(); //Thread safe
-
+	ExtentTest test;
+	ExtentReports extent = ExtentReporter.getReportObject();
 	
-//	WebDriver driver=null;
+	ThreadLocal<ExtentTest> extentTest = new ThreadLocal<ExtentTest>(); //Thread safe
 	
 	
 	@Override
 	public void onTestStart(ITestResult result) {
 		// TODO Auto-generated method stub
+		test = extent.createTest(result.getMethod().getMethodName());
+		extentTest.set(test);//unique thread id(ErrorValidationTest)->test
 		
 	}
 
@@ -38,13 +43,15 @@ public class Listeners extends BaseClass implements ITestListener{
 		
 		System.out.println("TEST PASSED. NOW CAPTURE SCREENSHOT");
 		takeScreenShot(result.getMethod().getMethodName());
+		
+		extentTest.get().log(Status.PASS, "Test Passed");
 
 	}
 	
 	@Override
 	public void onTestFailure(ITestResult result) {
 		// TODO Auto-generated method stub
-		
+		extentTest.get().log(Status.FAIL, "Test Failed");
 	}
 
 	@Override
@@ -68,6 +75,7 @@ public class Listeners extends BaseClass implements ITestListener{
 	@Override
 	public void onFinish(ITestContext context) {
 		// TODO Auto-generated method stub
+		extent.flush();
 		
 	}
 

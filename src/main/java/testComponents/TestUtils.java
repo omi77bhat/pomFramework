@@ -1,6 +1,5 @@
 package testComponents;
 
-import org.testng.annotations.AfterMethod;
 import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
@@ -8,14 +7,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.testng.annotations.AfterMethod;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class Utils {
-	
-static WebDriver driver;
-	
-	
+public class TestUtils extends Base {
+
 	public static WebDriver launchApplication(WebDriver driver, String browserName, String url) {
 		
 		if (browserName.contains("chrome")) {
@@ -47,6 +44,7 @@ static WebDriver driver;
 	{
 		driver.quit();
 	}
+
 
 
 }

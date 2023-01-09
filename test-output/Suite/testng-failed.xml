@@ -4,16 +4,15 @@
   <listeners>
     <listener class-name="testComponents.Listeners"/>
   </listeners>
-  <test thread-count="5" name="LoginPageTest(failed)">
+  <test thread-count="5" name="End to End Test(failed)">
     <classes>
       <class name="tests.LoginPageTest">
         <methods>
-          <include name="launchApp"/>
-          <include name="exitApp"/>
-          <include name="run_LoginTest"/>
-          <include name="run_addToCartTest"/>
+          <include name="initialize"/>
+          <include name="close_Browser"/>
+          <include name="run_LoginTest_VerifyTitle"/>
         </methods>
       </class> <!-- tests.LoginPageTest -->
     </classes>
-  </test> <!-- LoginPageTest(failed) -->
+  </test> <!-- End to End Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

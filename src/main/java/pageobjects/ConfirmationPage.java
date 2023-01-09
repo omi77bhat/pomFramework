@@ -3,23 +3,25 @@ package pageobjects;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import testComponents.Base;
 
 
-public class ConfirmationPage {
+public class ConfirmationPage extends Base{
 	
-WebDriver driver;
 	
-	public ConfirmationPage(WebDriver driver) {
+	public ConfirmationPage() {
 		
-		this.driver = driver;
+		PageFactory.initElements(driver, this);
 		
 	}
 	
 	@FindBy(css = ".hero-primary")
 	WebElement confirmationMessage;
 	
-	public String getConfirmationMessage()
-	{
+	
+	public String getConfirmationMessage(){
 		
 		return confirmationMessage.getText();
 	}
